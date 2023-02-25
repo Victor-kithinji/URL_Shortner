@@ -2,9 +2,8 @@ const config = {
 no_ref: "off", //Control the HTTP referrer header, if you want to create an anonymous link that will hide the HTTP Referer header, please set to "on" .
 theme:"",//Homepage theme, use the empty value for default theme. To use urlcool theme, please fill with "theme/urlcool" .
 cors: "on",//Allow Cross-origin resource sharing for API requests.
-unique_link:true,//If it is true, the same long url will be shorten into the same short url
-custom_link:false,//Allow users to customize the short url.
-safe_browsing_api_key: "" //Enter Google Safe Browsing API Key to enable url safety check before redirect.
+unique_link:true,
+custom_link:false,
 }
 
 const html404 = `<!DOCTYPE html>
@@ -148,7 +147,7 @@ async function handleRequest(request) {
   console.log(path)
   if(!path){
 
-    const html= await fetch("https://xytom.github.io/Url-Shorten-Worker/"+config.theme+"/index.html")
+    const html= await fetch("https://Victor-kithinji.github.io/URL_Shorter/"+config.theme+"/index.html")
     
     return new Response(await html.text(), {
     headers: {
@@ -171,7 +170,7 @@ async function handleRequest(request) {
   if (location) {
     if (config.safe_browsing_api_key){
       if(!(await is_url_safe(location))){
-        let warning_page = await fetch("https://xytom.github.io/Url-Shorten-Worker/safe-browsing.html")
+        let warning_page = await fetch("https://Victor-kithinji.github.io/URL_Shorter/safe-browsing.html")
         warning_page =await warning_page.text()
         warning_page = warning_page.replace(/{Replace}/gm, location)
         return new Response(warning_page, {
@@ -182,7 +181,7 @@ async function handleRequest(request) {
       }
     }
     if (config.no_ref=="on"){
-      let no_ref= await fetch("https://xytom.github.io/Url-Shorten-Worker/no-ref.html")
+      let no_ref= await fetch("https://Victor-kithinji.github.io/URL_Shorter/no-ref.html")
       no_ref=await no_ref.text()
       no_ref=no_ref.replace(/{Replace}/gm, location)
       return new Response(no_ref, {
