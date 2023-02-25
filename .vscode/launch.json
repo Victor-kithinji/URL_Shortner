@@ -4,8 +4,9 @@
         {
             "type": "firefox",
             "request": "launch",
-            "name": "Launch Chrome against localhost",
-            "url": "http://localhost:8080",
+            "reAttach": true,
+            "name": "Launch localhost",
+            "url": "http://localhost/index.js",
             "webRoot": "${workspaceFolder}"
         }
     ]

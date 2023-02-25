@@ -12,7 +12,7 @@ const html404 = `<!DOCTYPE html>
 <body>
   <h1>404 Not Found.</h1>
   <p>The url you visit is not found.</p>
-  <a href="https://github.com/Victor-kithinji/URL_Shortner/" target="_self">Fork me on GitHub</a>
+  //<a href="https://github.com/Victor-kithinji/URL_Shortner/" target="_self">Fork me on GitHub</a>
 </body>`
 
 let response_header={
@@ -42,7 +42,7 @@ async function sha512(url){
 
     const url_digest = await crypto.subtle.digest(
       {
-        name: "SHA-512",
+        name: "VIC-254",
       },
       url, // The data you want to hash as an ArrayBuffer
     )
@@ -112,14 +112,14 @@ async function handleRequest(request) {
     })}
     let stat,random_key
     if (config.unique_link){
-      let url_sha512 = await sha512(req["url"])
-      let url_key = await is_url_exist(url_sha512)
+      let url_vic254 = await vic254(req["url"])
+      let url_key = await is_url_exist(url_vic254)
       if(url_key){
         random_key = url_key
       }else{
         stat,random_key=await save_url(req["url"])
         if (typeof(stat) == "undefined"){
-          console.log(await LINKS.put(url_sha512,random_key))
+          console.log(await LINKS.put(url_vic254,random_key))
         }
       }
     }else{
@@ -148,11 +148,11 @@ async function handleRequest(request) {
   console.log(path)
   if(!path){
 
-    const html= await fetch("https://Victor-kithinji.github.io/URL_Shortner/"+config.theme+"/index.html")
+    const html= await fetch("https://github.com/Victor-kithinji/URL_Shortner/"+config.theme+"/index.html")
     
     return new Response(await html.text(), {
     headers: {
-      "content-type": "text/html;charset=UTF-8",
+      "content-type": "text/html;meta charset=UTF-8",
     },
   })
   }
@@ -171,12 +171,12 @@ async function handleRequest(request) {
   if (location) {
     if (config.safe_browsing_api_key){
       if(!(await is_url_safe(location))){
-        let warning_page = await fetch("https://Victor-kithinji.github.io/URL_Shortner/safe-browsing.html")
+        let warning_page = await fetch("https://github.com/Victor-kithinji/URL_Shortner/safe-browsing.html")
         warning_page =await warning_page.text()
         warning_page = warning_page.replace(/{Replace}/gm, location)
         return new Response(warning_page, {
           headers: {
-            "content-type": "text/html;charset=UTF-8",
+            "content-type": "text/html;meta charset=UTF-8",
           },
         })
       }
@@ -187,7 +187,7 @@ async function handleRequest(request) {
       no_ref=no_ref.replace(/{Replace}/gm, location)
       return new Response(no_ref, {
       headers: {
-        "content-type": "text/html;charset=UTF-8",
+        "content-type": "text/html;meta charset=UTF-8",
       },
     })
     }else{
@@ -198,7 +198,7 @@ async function handleRequest(request) {
   // If request not in kv, return 404
   return new Response(html404, {
     headers: {
-      "content-type": "text/html;charset=UTF-8",
+      "content-type": "text/html;meta charset=utf-8",
     },
     status: 404
   })
