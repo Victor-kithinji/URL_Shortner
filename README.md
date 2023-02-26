@@ -1,1 +1,1 @@
-https://lnks.eu.org/
+https://url-shortner-nine-alpha.vercel.app/
