@@ -25,10 +25,11 @@ const config = {
     "Access-Control-Allow-Methods": "POST",
     }
   }
+
   
   async function randomString(len) {
   　　len = len || 6;
-  　　let $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678';    /****默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1****/
+  　　let $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678';    
   　　let maxPos = $chars.length;
   　　let result = '';
   　　for (i = 0; i < len; i++) {
@@ -53,7 +54,7 @@ const config = {
   }
   async function checkURL(URL){
       let str=URL;
-      let Expression=/http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/;
+      let Expression=/https?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/;
       let objExp=new RegExp(Expression);
       if(objExp.test(str)==true){
         if (str[0] == 'h')
@@ -92,7 +93,7 @@ const config = {
       redirect: 'follow'
     };
   
-    result = await fetch("https://safebrowsing.googleapis.com/v4/threatMatches:find?key="+config.safe_browsing_api_key, requestOptions)
+    result = await fetch("https://url-shortner-nine-alpha.vercel.app/:find?key="+config.safe_browsing_api_key, requestOptions)
     result = await result.json()
     console.log(result)
     if (Object.keys(result).length === 0){
